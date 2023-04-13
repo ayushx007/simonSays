@@ -4,7 +4,7 @@ var userClickedPattern = [];
 var started = false;
 var level = 0;
 
-$(document).keydown(function () {
+$(document).on("keydown touchstart", function () {
     if (!started) {
         $("h1").text("Level " + level);
         nextSequence();
@@ -12,7 +12,7 @@ $(document).keydown(function () {
     }
 });
 
-$(".btn").click(function () {
+$(".btn").on("click touchstart", function () {
     var userChosenColour = $(this).attr("id");
     userClickedPattern.push(userChosenColour);
     playSound(userChosenColour);
@@ -42,7 +42,7 @@ function nextSequence() {
     userClickedPattern = [];
     level++;
     $("h1").text("Level " + level);
-  
+
     var i = 0;
     var intervalId = setInterval(function() {
       var color = gamePattern[i];
@@ -61,7 +61,7 @@ function nextSequence() {
       }
     }, 500);
   }
-  
+
 
 function animatePress(currentColour) {
     $("#" + currentColour).addClass("pressed");
