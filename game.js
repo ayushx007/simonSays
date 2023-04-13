@@ -3,6 +3,7 @@ var gamePattern = [];
 var userClickedPattern = [];
 var started = false;
 var level = 0;
+var gameRunning = false;
 
 $(document).on("keydown touchstart", function () {
     if (!started) {
@@ -39,6 +40,10 @@ function checkAnswer(currentLevel) {
 }
 
 function nextSequence() {
+    if (gameRunning) {
+        return;
+    }
+    gameRunning = true;
     userClickedPattern = [];
     level++;
     $("h1").text("Level " + level);
@@ -57,6 +62,7 @@ function nextSequence() {
           gamePattern.push(randomChosenColour);
           $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
           playSound(randomChosenColour);
+          gameRunning = false;
         }, 500);
       }
     }, 500);
@@ -79,4 +85,5 @@ function startOver() {
     level = 0;
     gamePattern = [];
     started = false;
+    gameRunning = false;
 }
